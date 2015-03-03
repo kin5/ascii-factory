@@ -8,13 +8,10 @@ import sys
 # Get a filename, and a scale
 # Create the image object and print out its dimensions
 filename = raw_input("Enter filename (or path from current directory): ")
-scale = input("Enter the scale (10, 100, etc.): ") #I think scale is the right term. Not really sure. Correct me if i'm wrong.
 image = Image.open(filename)
 print "Image size: " + str(image.size)
 
 w, h = image.size
-lim_w = w / scale
-lim_h = h / scale
     
 obj = image.load()
 
@@ -27,7 +24,7 @@ b_min = 255
 # Added this to detect minimum of each and use that as the floor
 for i in range(0, h):
     for j in range(0, w):
-        if i % lim_h == 0 and j % lim_w == 0:
+        if i % 12 == 0 and j % 6 == 0:
             r, g, b = obj[j,i]
             if r < r_min:
                 r_min = r
@@ -41,7 +38,7 @@ for i in range(0, h):
 # And here's where the magic happens
 for i in range(0, h):
     for j in range(0, w):
-        if i % lim_h == 0 and j % lim_w == 0:
+        if i % 12 == 0 and j % 6 == 0:
             r, g, b = obj[j,i]
             if r <= r_min + 25 and g <= g_min + 25 and b <= b_min + 25:
                 sys.stdout.write("#")
@@ -63,7 +60,7 @@ for i in range(0, h):
                 sys.stdout.write("`")
             else:
                 sys.stdout.write(" ")             
-    if i % lim_h == 0:
+    if i % 12 == 0:
         print
 
 # We're done here
