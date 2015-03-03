@@ -1,7 +1,12 @@
 ascii-factory
 =============
 
-ascii-factory is a Python program that takes an image file and converts it to ASCII art (as best as it can). Just a fun project that I wanted to try out. Will be returning to periodically as I can.
+**ascii-factory** is a Python program that takes an image file and converts it to ASCII art (as best as it can). Just a fun project that I wanted to try out. Will be returning to periodically as I can.
+
+Dependencies
+============
+
+**PIL** (Python Imaging Library)
 
 Usage
 =====
