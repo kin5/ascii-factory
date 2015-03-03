@@ -1,12 +1,12 @@
 # ascii-factory
 # Kinman Covey
 # 3/2/2015
+# dependencies: PIL (Python Imaging Library)
 
 from PIL import Image
 import sys
 
-#filename = raw_input("Enter filename (or path from current directory): ")
-filename = "KINMAN COVEY.jpg"
+filename = raw_input("Enter filename (or path from current directory): ")
 image = Image.open(filename)
 print "Image size: " + str(image.size)
 
