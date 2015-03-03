@@ -1,7 +1,6 @@
 # ascii-factory
 # Kinman Covey
 # 3/2/2015
-# dependencies: PIL (Python Imaging Library)
 
 from PIL import Image
 import sys
@@ -11,13 +10,13 @@ image = Image.open(filename)
 print "Image size: " + str(image.size)
 
 w, h = image.size
-lim_w = w / h
-lim_h = h / w
+lim_w = w / 100
+lim_h = h / 100
 obj = image.load()
 
 for i in range(0, h):
     for j in range(0, w):
-        if i % 5 == 0 and j % 2 == 0:
+        if i % lim_h == 0 and j % lim_w == 0:
             r, g, b = obj[j,i]
             if r <= 25 and g <= 25 and b <= 25:
                 sys.stdout.write("#")
@@ -35,5 +34,5 @@ for i in range(0, h):
                 sys.stdout.write(".")
             else:
                 sys.stdout.write(".")             
-    if i % 5 == 0:
+    if i % lim_h == 0:
         print
