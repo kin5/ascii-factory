@@ -5,34 +5,66 @@
 from PIL import Image
 import sys
 
+# Get a filename, and a scale
+# Create the image object and print out its dimensions
 filename = raw_input("Enter filename (or path from current directory): ")
+scale = input("Enter the scale (10, 100, etc.): ") #I think scale is the right term. Not really sure. Correct me if i'm wrong.
 image = Image.open(filename)
 print "Image size: " + str(image.size)
 
 w, h = image.size
-lim_w = w / 100
-lim_h = h / 100
+lim_w = w / scale
+lim_h = h / scale
+    
 obj = image.load()
 
+r_min = 255
+g_min = 255
+b_min = 255
+
+# Find the minimum r, g, and b value for testing purposes
+# Found out picture that were really light were not decipherable
+# Added this to detect minimum of each and use that as the floor
 for i in range(0, h):
     for j in range(0, w):
         if i % lim_h == 0 and j % lim_w == 0:
             r, g, b = obj[j,i]
-            if r <= 25 and g <= 25 and b <= 25:
+            if r < r_min:
+                r_min = r
+
+            if g < g_min:
+                g_min = g
+
+            if b < b_min:
+                b_min = b
+
+# And here's where the magic happens
+for i in range(0, h):
+    for j in range(0, w):
+        if i % lim_h == 0 and j % lim_w == 0:
+            r, g, b = obj[j,i]
+            if r <= r_min + 25 and g <= g_min + 25 and b <= b_min + 25:
                 sys.stdout.write("#")
-            elif r <= 50 and g <= 50 and b <= 50:
+            elif r <= r_min + 50 and g <= g_min + 50 and b <= b_min + 50:
                 sys.stdout.write("%")
-            elif r <= 75 and g <= 75 and b <= 75:
+            elif r <= r_min + 75 and g <= g_min + 75 and b <= b_min + 75:
                 sys.stdout.write("I")
-            elif r <= 100 and g <= 100 and b <= 100:
-                sys.stdout.write(":")
-            elif r <= 125 and g <= 125 and b <= 125:
+            elif r <= r_min + 100 and g <= g_min + 100 and b <= b_min + 100:
+                sys.stdout.write("i")
+            elif r <= r_min + 125 and g <= g_min + 125 and b <= b_min + 125:
                 sys.stdout.write("+")
-            elif r <= 150 and g <= 150 and b <= 150:
+            elif r <= r_min + 150 and g <= g_min + 150 and b <= b_min + 150:
+                sys.stdout.write(":")
+            elif r <= r_min + 175 and g <= g_min + 175 and b <= b_min + 175:
                 sys.stdout.write("-")
-            elif r <= 175 and g <= 175 and b <= 175:
-                sys.stdout.write(".")
+            elif r <= r_min + 200 and g <= g_min + 200 and b <= b_min + 200:
+                sys.stdout.write("'")
+            elif r <= r_min + 225 and g <= g_min + 225 and b <= b_min + 225:
+                sys.stdout.write("`")
             else:
-                sys.stdout.write(".")             
+                sys.stdout.write(" ")             
     if i % lim_h == 0:
         print
+
+# We're done here
+print "\nThat's all folks!"
