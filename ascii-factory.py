@@ -15,7 +15,14 @@ while run != False:
         break
     scale_x = input("Enter the down scale x value (5, 2, etc): ")
     scale_y = input("Enter the down scale y value (10, 4, etc): ")
-    image = Image.open(filename)
+
+    while True:
+        try:
+            image = Image.open(filename)
+            break
+        except IOError:
+            filename = raw_input("Incorrect filename, enter again (or stop to exit): ")
+            
     print "Image size: " + str(image.size)
 
     w, h = image.size
@@ -48,7 +55,10 @@ while run != False:
     # Added this to detect minimum of each and use that as the floor
     for i in range(0, h):
         for j in range(0, w):
-            r, g, b = obj[j,i]
+            if len(obj[j,i]) == 3:
+                r, g, b = obj[j,i]
+            elif len(obj[j,i]) == 4:
+                r, g, b, a = obj[j,i]
             if r < r_min:
                 r_min = r
 
@@ -83,16 +93,23 @@ while run != False:
     print len(r_list)
 
     i_avg = (r_avg + g_avg + b_avg) / count
-    r_avg = r_avg / len(r_list)
-    g_avg = g_avg / len(g_list)
-    b_avg = b_avg / len(b_list)
+    if len(r_list) > 0:
+        r_avg = r_avg / len(r_list)
+    if len(g_list) > 0:
+        g_avg = g_avg / len(g_list)
+    if len(b_list) > 0:
+        b_avg = b_avg / len(b_list)
 
     print "Printing picture..."
     # And here's where the magic happens
     for i in range(0, h):
         for j in range(0, w):
             if i % scale_y == 0 and j % scale_x == 0:
-                r, g, b = obj[j,i]
+                if len(obj[j,i]) == 3:
+                    r, g, b = obj[j,i]
+                elif len(obj[j,i]) == 4:
+                    r, g, b, a = obj[j,i]
+                    
                 if r <= r_min + 25 and g <= g_min + 25 and b <= b_min + 25:
                     sys.stdout.write("#")
                 elif r <= r_min + 50 and g <= g_min + 50 and b <= b_min + 50:
@@ -136,5 +153,5 @@ while run != False:
     print "AVG RGB: " + str(i_avg)
 
     # We're done here
-    print "\nThat's all folks!"
+    print "\nThat's all folks!\n"
 
