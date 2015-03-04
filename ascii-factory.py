@@ -127,7 +127,7 @@ while run != False:
                 elif r <= r_min + 200 and g <= g_min + 200 and b <= b_min + 200:
                     sys.stdout.write("'")
                 elif r <= r_min + 225 and g <= g_min + 225 and b <= b_min + 225:
-                    sys.stdout.write("`")
+                    sys.stdout.write(" ")
                 elif r >= r_min + 250 and g >= g_min + 250 and b >= b_min + 250:
                     sys.stdout.write(" ")
                 elif r > b and g > b and r > r_avg and g > g_avg: # Yellows
@@ -137,11 +137,11 @@ while run != False:
                 elif g > r and b > r and g > g_avg and b > b_avg: # Cyans
                     sys.stdout.write(":")
                 elif r > g and r > b and r > r_avg: # Reds 
-                    sys.stdout.write("!")
+                    sys.stdout.write("$")
                 elif g > r and g > b and g > g_avg: # Greens 
                     sys.stdout.write(",")
                 elif b > g and b > r and b > b_avg: # Blues
-                    sys.stdout.write("\'")
+                    sys.stdout.write("\"")
                 else:
                     sys.stdout.write(".")
         if i % scale_y == 0:
