@@ -13,7 +13,7 @@ Dependencies
 Usage
 =====
 
-Very simple. Enter a filename, then hit enter. Watch as it turns to ASCII art before you.
+Very simple. Enter a filename, then hit enter. Then enter a value for the width and height to be scaled down by, keep it tight. Watch as it turns to ASCII art before you.
 
 Example
 =======
