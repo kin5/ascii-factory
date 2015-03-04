@@ -13,15 +13,22 @@ while run != False:
     if filename == "stop":
         run = False
         break
-    scale_x = input("Enter the down scale x value (5, 2, etc): ")
-    scale_y = input("Enter the down scale y value (10, 4, etc): ")
-
+    
     while True:
         try:
             image = Image.open(filename)
             break
         except IOError:
             filename = raw_input("Incorrect filename, enter again (or stop to exit): ")
+
+    print "\nThis next value is how much you want to scale each dimension down by (because the image is more than likely very large)."
+    print "I've found scale_x = 10 and scale_y = 20 works well, but any 1x2 dimension would probably be fine."
+    scale_x = input("Enter the down scale x value (5, 2, etc): ")
+    scale_y = input("Enter the down scale y value (10, 4, etc): ")
+
+    # Open text file for output
+    text_file = open(filename + ".txt", "w")
+        
             
     print "Image size: " + str(image.size)
 
@@ -112,41 +119,60 @@ while run != False:
                     
                 if r <= r_min + 25 and g <= g_min + 25 and b <= b_min + 25:
                     sys.stdout.write("#")
+                    text_file.write("#")
                 elif r <= r_min + 50 and g <= g_min + 50 and b <= b_min + 50:
                     sys.stdout.write("%")
+                    text_file.write("%")
                 elif r <= r_min + 75 and g <= g_min + 75 and b <= b_min + 75:
                     sys.stdout.write("I")
+                    text_file.write("I")
                 elif r <= r_min + 100 and g <= g_min + 100 and b <= b_min + 100:
                     sys.stdout.write("i")
+                    text_file.write("i")
                 elif r <= r_min + 125 and g <= g_min + 125 and b <= b_min + 125:
-                    sys.stdout.write("+")
+                    sys.stdout.write("!")
+                    text_file.write("!")
                 elif r <= r_min + 150 and g <= g_min + 150 and b <= b_min + 150:
-                    sys.stdout.write(":")
+                    sys.stdout.write("+")
+                    text_file.write("+")
                 elif r <= r_min + 175 and g <= g_min + 175 and b <= b_min + 175:
-                    sys.stdout.write("-")
+                    sys.stdout.write(":")
+                    text_file.write(":")
                 elif r <= r_min + 200 and g <= g_min + 200 and b <= b_min + 200:
-                    sys.stdout.write("'")
+                    sys.stdout.write("-")
+                    text_file.write("-")
                 elif r <= r_min + 225 and g <= g_min + 225 and b <= b_min + 225:
-                    sys.stdout.write(" ")
+                    sys.stdout.write("'")
+                    text_file.write("'")
                 elif r >= r_min + 250 and g >= g_min + 250 and b >= b_min + 250:
                     sys.stdout.write(" ")
+                    text_file.write(" ")
                 elif r > b and g > b and r > r_avg and g > g_avg: # Yellows
                     sys.stdout.write("`")
+                    text_file.write("`")
                 elif r > g and b > g and r > r_avg and b > b_avg: # Purps
                     sys.stdout.write("%")
+                    text_file.write("%")
                 elif g > r and b > r and g > g_avg and b > b_avg: # Cyans
-                    sys.stdout.write(":")
+                    sys.stdout.write(";")
+                    text_file.write(";")
                 elif r > g and r > b and r > r_avg: # Reds 
                     sys.stdout.write("$")
+                    text_file.write("$")
                 elif g > r and g > b and g > g_avg: # Greens 
                     sys.stdout.write(",")
+                    text_file.write(",")
                 elif b > g and b > r and b > b_avg: # Blues
                     sys.stdout.write("\"")
+                    text_file.write("\"")
                 else:
                     sys.stdout.write(".")
+                    text_file.write(".")
         if i % scale_y == 0:
             print
+            text_file.write("\n")
 
+    text_file.close()
     print "Avg R: " + str(r_avg)
     print "Avg G: " + str(g_avg)
     print "Avg B: " + str(b_avg)
