@@ -1,3 +1,4 @@
+#!/usr/bin/env python    
 # ascii-factory
 # Kinman Covey
 # 3/2/2015
