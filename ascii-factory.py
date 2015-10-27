@@ -110,68 +110,66 @@ while run != False:
 
     print "Printing picture..."
     # And here's where the magic happens
-    for i in range(0, h):
-        for j in range(0, w):
-            if i % scale_y == 0 and j % scale_x == 0:
-                if len(obj[j,i]) == 3:
-                    r, g, b = obj[j,i]
-                elif len(obj[j,i]) == 4:
-                    r, g, b, a = obj[j,i]
-                    
-                if r <= r_min + 25 and g <= g_min + 25 and b <= b_min + 25:
-                    sys.stdout.write("#")
-                    text_file.write("#")
-                elif r <= r_min + 50 and g <= g_min + 50 and b <= b_min + 50:
-                    sys.stdout.write("%")
-                    text_file.write("%")
-                elif r <= r_min + 75 and g <= g_min + 75 and b <= b_min + 75:
-                    sys.stdout.write("I")
-                    text_file.write("I")
-                elif r <= r_min + 100 and g <= g_min + 100 and b <= b_min + 100:
-                    sys.stdout.write("i")
-                    text_file.write("i")
-                elif r <= r_min + 125 and g <= g_min + 125 and b <= b_min + 125:
-                    sys.stdout.write("!")
-                    text_file.write("!")
-                elif r <= r_min + 150 and g <= g_min + 150 and b <= b_min + 150:
-                    sys.stdout.write("+")
-                    text_file.write("+")
-                elif r <= r_min + 175 and g <= g_min + 175 and b <= b_min + 175:
-                    sys.stdout.write(":")
-                    text_file.write(":")
-                elif r <= r_min + 200 and g <= g_min + 200 and b <= b_min + 200:
-                    sys.stdout.write("-")
-                    text_file.write("-")
-                elif r <= r_min + 225 and g <= g_min + 225 and b <= b_min + 225:
-                    sys.stdout.write("'")
-                    text_file.write("'")
-                elif r >= r_min + 250 and g >= g_min + 250 and b >= b_min + 250:
-                    sys.stdout.write(" ")
-                    text_file.write(" ")
-                elif r > b and g > b and r > r_avg and g > g_avg: # Yellows
-                    sys.stdout.write("`")
-                    text_file.write("`")
-                elif r > g and b > g and r > r_avg and b > b_avg: # Purps
-                    sys.stdout.write("%")
-                    text_file.write("%")
-                elif g > r and b > r and g > g_avg and b > b_avg: # Cyans
-                    sys.stdout.write(";")
-                    text_file.write(";")
-                elif r > g and r > b and r > r_avg: # Reds 
-                    sys.stdout.write("$")
-                    text_file.write("$")
-                elif g > r and g > b and g > g_avg: # Greens 
-                    sys.stdout.write(",")
-                    text_file.write(",")
-                elif b > g and b > r and b > b_avg: # Blues
-                    sys.stdout.write("\"")
-                    text_file.write("\"")
-                else:
-                    sys.stdout.write(".")
-                    text_file.write(".")
-        if i % scale_y == 0:
-            print
-            text_file.write("\n")
+    for i in range(0, h, scale_y):
+        for j in range(0, w, scale_x):
+            if len(obj[j,i]) == 3:
+                r, g, b = obj[j,i]
+            elif len(obj[j,i]) == 4:
+                r, g, b, a = obj[j,i]
+                
+            if r <= r_min + 25 and g <= g_min + 25 and b <= b_min + 25:
+                sys.stdout.write("#")
+                text_file.write("#")
+            elif r <= r_min + 50 and g <= g_min + 50 and b <= b_min + 50:
+                sys.stdout.write("%")
+                text_file.write("%")
+            elif r <= r_min + 75 and g <= g_min + 75 and b <= b_min + 75:
+                sys.stdout.write("I")
+                text_file.write("I")
+            elif r <= r_min + 100 and g <= g_min + 100 and b <= b_min + 100:
+                sys.stdout.write("i")
+                text_file.write("i")
+            elif r <= r_min + 125 and g <= g_min + 125 and b <= b_min + 125:
+                sys.stdout.write("!")
+                text_file.write("!")
+            elif r <= r_min + 150 and g <= g_min + 150 and b <= b_min + 150:
+                sys.stdout.write("+")
+                text_file.write("+")
+            elif r <= r_min + 175 and g <= g_min + 175 and b <= b_min + 175:
+                sys.stdout.write(":")
+                text_file.write(":")
+            elif r <= r_min + 200 and g <= g_min + 200 and b <= b_min + 200:
+                sys.stdout.write("-")
+                text_file.write("-")
+            elif r <= r_min + 225 and g <= g_min + 225 and b <= b_min + 225:
+                sys.stdout.write("'")
+                text_file.write("'")
+            elif r >= r_min + 250 and g >= g_min + 250 and b >= b_min + 250:
+                sys.stdout.write(" ")
+                text_file.write(" ")
+            elif r > b and g > b and r > r_avg and g > g_avg: # Yellows
+                sys.stdout.write("`")
+                text_file.write("`")
+            elif r > g and b > g and r > r_avg and b > b_avg: # Purps
+                sys.stdout.write("%")
+                text_file.write("%")
+            elif g > r and b > r and g > g_avg and b > b_avg: # Cyans
+                sys.stdout.write(";")
+                text_file.write(";")
+            elif r > g and r > b and r > r_avg: # Reds 
+                sys.stdout.write("$")
+                text_file.write("$")
+            elif g > r and g > b and g > g_avg: # Greens 
+                sys.stdout.write(",")
+                text_file.write(",")
+            elif b > g and b > r and b > b_avg: # Blues
+                sys.stdout.write("\"")
+                text_file.write("\"")
+            else:
+                sys.stdout.write(".")
+                text_file.write(".")
+        print
+        text_file.write("\n")
 
     text_file.close()
     print "Avg R: " + str(r_avg)
